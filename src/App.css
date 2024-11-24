@@ -1,3 +1,4 @@
+/* Container principal */
 .container {
   max-width: 1000px;
   padding: 20px;
@@ -5,11 +6,13 @@
   text-align: center;
 }
 
+/* Títulos principais */
 h1 {
   font-size: 3rem;
   color: aliceblue;
 }
 
+/* Campo de entrada */
 input {
   padding: 10px;
   border-radius: 20px 0 0 20px;
@@ -20,6 +23,7 @@ input {
   margin-top: 30px;
 }
 
+/* Botões gerais */
 button {
   background-color: rgb(255, 126, 34);
   border: none;
@@ -34,6 +38,7 @@ button:hover {
   background-color: rgb(255, 112, 10);
 }
 
+/* Informações do tempo */
 .weather-container {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 20px;
@@ -53,12 +58,12 @@ h2 {
 
 .temperature {
   font-weight: bold;
-  font-size: 2.5rem;
+  font-size: 1rem;
 }
 
 .description {
   text-transform: capitalize;
-  font-size: 1.3rem;
+  font-size: 1rem;
   margin-bottom: 20px;
 }
 
@@ -68,7 +73,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: 1rem;
   margin-bottom: 15px;
 }
 
@@ -90,4 +95,99 @@ h3 {
 .forecast-description {
   text-transform: capitalize;
   font-size: 1rem;
+}
+
+/* Menu lateral */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  transition: right 0.3s ease;
+  border-radius: 20px 0 0 20px;
+}
+
+.side-menu.open {
+  right: 0;
+}
+
+.side-menu h2 {
+  font-size: 2rem;
+  color: rgb(34, 34, 34);
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin: 10px 0;
+  color: rgb(34, 34, 34);
+  font-size: 1rem;
+}
+
+.input-group input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 100%;
+  margin-top: 5px;
+  outline: none;
+}
+
+/* Botão salvar */
+.save-button {
+  background-color: rgb(50, 205, 50);
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.save-button:hover {
+  background-color: rgb(34, 139, 34);
+}
+
+/* Mensagem de feedback */
+.message {
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: rgb(34, 139, 34);
+  text-align: center;
+}
+
+/* Botão de alternância do menu */
+.menu-toggle-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgb(255, 126, 34);
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: aliceblue;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.menu-toggle-button:hover {
+  background-color: rgb(255, 112, 10);
+}
+
+/* Ícone dentro do botão */
+.menu-toggle-button i {
+  font-size: 1.5rem;
 }
