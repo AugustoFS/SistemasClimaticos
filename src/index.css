@@ -8,7 +8,7 @@
 
 body{
     font-family: "Roboto", sans-serif;
-    background: linear-gradient(to right, rgb(90, 90, 221) 0%, rgb(0,212,255));
+    background: rgb(55, 55, 55);
     color: #333;
     line-height: 1.6;
 }
