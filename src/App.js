@@ -33,6 +33,41 @@ function App() {
           <p>Sensação: {Math.round(weather.main.feels_like)}ºC</p>
           <p>Umidade: {weather.main.humidity}%</p>
           <p>Pressão: {weather.main.pressure}</p>
+          <p>Vento: {weather.wind.speed.toFixed(1)} m/s</p>
+        </div>
+      </div>
+    );
+  }
+  console.log(weather);
+
+  function WeatherInformations24Hours({ weather5Days }) {
+    const next24HoursForecast = weather5Days.list.slice(0, 8); // Obtém as próximas 8 previsões (3 horas cada)
+
+    function formatTime(date) {
+      return new Date(date.dt * 1000).toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+    }
+
+    return (
+      <div className="weather-container">
+        <h3>Próximas 24 Horas</h3>
+        <div className="weather-horizontal-scroll">
+          {next24HoursForecast.map((forecast) => (
+            <div key={forecast.dt} className="weather-item">
+              <p className="forecast-time">{formatTime(forecast)}</p>
+              <img
+                src={`https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`}
+                alt="Ícone do tempo"
+              />
+              <p className="forecast-description">{forecast.weather[0].description}</p>
+              <p>
+                {Math.round(forecast.main.temp_min)}ºC /{' '}
+                {Math.round(forecast.main.temp_max)}ºC
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     );
@@ -49,7 +84,7 @@ function App() {
       }
     }
 
-    const next5DaysForecast = Object.values(dailyForecast).slice(1, 6);
+    const next5DaysForecast = Object.values(dailyForecast).slice(0, 6);
 
     function covertDate(date) {
       const newDate = new Date(date.dt * 1000).toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit' });
@@ -59,7 +94,7 @@ function App() {
     return (
       <div className="weather-container">
         <h3>Próximos Dias</h3>
-        <div className="weather-list">
+        <div className="weather-horizontal-scroll">
           {next5DaysForecast.map(forecast => (
             <div key={forecast.dt} className="weather-item">
               <p className="forecast-day">{covertDate(forecast)}</p>
@@ -86,7 +121,12 @@ function App() {
       </div>
 
       {weather && <WeatherInformations weather={weather} />}
-      {weather5Days && <WeatherInformations5Days weather5Days={weather5Days} />}
+      {weather5Days && (
+        <>
+          <WeatherInformations24Hours weather5Days={weather5Days} />
+          <WeatherInformations5Days weather5Days={weather5Days} />
+        </>
+      )}
     </div>
   );
 }
