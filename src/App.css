@@ -82,12 +82,12 @@ h3 {
   overflow-x: scroll; /* Permite rolagem horizontal */
   justify-content: space-evenly; /* Espaçamento uniforme entre os itens */
   padding: 10px;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE e Edge */
+  /*scrollbar-width: none;  Firefox */
+  /*-ms-overflow-style: none; IE e Edge */
 }
 
 .weather-horizontal-scroll::-webkit-scrollbar {
-  display: none; /* Chrome, Safari e Opera */
+  /*display: none; Chrome, Safari e Opera */
 }
 
 .weather-item {

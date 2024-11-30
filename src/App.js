@@ -84,7 +84,7 @@ function App() {
       }
     }
 
-    const next5DaysForecast = Object.values(dailyForecast).slice(0, 6);
+    const next5DaysForecast = Object.values(dailyForecast).slice(1, 6);
 
     function covertDate(date) {
       const newDate = new Date(date.dt * 1000).toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit' });
