@@ -1,0 +1,86 @@
+/* Container principal */
+.container {
+    max-width: 340px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Título */
+h2 {
+    font-size: 2rem;
+    color: rgb(55, 55, 55);
+    margin-bottom: 20px;
+}
+
+/* Estilo do formulário */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* Espaçamento entre os elementos do formulário */
+}
+
+/* Inputs e botões */
+label {
+    margin: 0;
+    /* Remove margens entre os rótulos */
+}
+
+input,
+button {
+    width: 100%;
+    /* Ambos com largura de 100% */
+    padding: 12px;
+    /* Ajuste para garantir que tenham a mesma altura */
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 1rem;
+    margin: 0;
+    /* Remove margens individuais */
+    box-sizing: border-box;
+    /* Garantir que o padding e bordas não alterem o tamanho total */
+    outline: none;
+}
+
+/* Ajustes específicos para o botão */
+button {
+    background-color: rgb(140, 140, 140);
+    color: aliceblue;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: rgb(100, 100, 100);
+}
+
+/* Mensagem de feedback */
+.message {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: rgb(55, 155, 55);
+}
+
+/* Links alternativos */
+p {
+    font-size: 0.9rem;
+    color: rgb(55, 55, 55);
+    margin: 15px 0 0;
+    /* Apenas espaçamento superior */
+}
+
+p span {
+    color: rgb(100, 100, 255);
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+p span:hover {
+    text-decoration: underline;
+}

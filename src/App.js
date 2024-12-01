@@ -1,11 +1,14 @@
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
+import Login from './Login'; // Tela de login
 
-function App() {
+function Home() {
   const [weather, setWeather] = useState();
   const [weather5Days, setWeather5Days] = useState();
   const inputRef = useRef();
+  const navigate = useNavigate(); // Hook para redirecionamento
 
   async function searchCity() {
     const city = inputRef.current.value;
@@ -38,10 +41,9 @@ function App() {
       </div>
     );
   }
-  console.log(weather);
 
   function WeatherInformations24Hours({ weather5Days }) {
-    const next24HoursForecast = weather5Days.list.slice(0, 8); // Obtém as próximas 8 previsões (3 horas cada)
+    const next24HoursForecast = weather5Days.list.slice(0, 8);
 
     function formatTime(date) {
       return new Date(date.dt * 1000).toLocaleTimeString('pt-BR', {
@@ -111,7 +113,7 @@ function App() {
   return (
     <div className="container">
       <header className="header">
-        <button className="header-button">Entrar</button>
+        <button className="header-button" onClick={() => navigate('/login')}>Entrar</button>
         <button className="header-button">Adicionar</button>
       </header>
 
@@ -128,6 +130,17 @@ function App() {
         </>
       )}
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Router>
   );
 }
 
