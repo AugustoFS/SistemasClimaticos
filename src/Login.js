@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Login.css'; // Certifique-se de renomear o arquivo CSS também, se necessário.
+import './App.css'; // Certifique-se de renomear o arquivo CSS também, se necessário.
 
 function Login() {
     const [isLogin, setIsLogin] = useState(true);
@@ -33,7 +33,7 @@ function Login() {
     };
 
     return (
-        <div className="container">
+        <div className="login-container">
             {isLogin ? (
                 <div className="form">
                     <h2>Login</h2>

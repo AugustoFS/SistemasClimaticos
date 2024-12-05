@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import { useState, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
-import Login from './Login'; // Tela de login
+import Login from './Login.js'; // Tela de login
 
 function Home() {
   const [weather, setWeather] = useState();
@@ -86,7 +86,7 @@ function Home() {
       }
     }
 
-    const next5DaysForecast = Object.values(dailyForecast).slice(1, 6);
+    const next5DaysForecast = Object.values(dailyForecast).slice(0, 6);
 
     function covertDate(date) {
       const newDate = new Date(date.dt * 1000).toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit' });
@@ -112,10 +112,12 @@ function Home() {
 
   return (
     <div className="container">
-      <header className="header">
+      <div>
+        <header className="header">
         <button className="header-button" onClick={() => navigate('/login')}>Entrar</button>
         <button className="header-button">Adicionar</button>
-      </header>
+      </header></div>
+
 
       <div className="search-section">
         <input ref={inputRef} type="text" placeholder="Digite o nome da cidade" />
