@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import './App.css'; // Certifique-se de renomear o arquivo CSS também, se necessário.
+import { useNavigate } from 'react-router-dom';
+import './App.css';
 
 function Login() {
     const [isLogin, setIsLogin] = useState(true);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     const toggleScreen = () => {
         setIsLogin(!isLogin);
@@ -14,10 +16,29 @@ function Login() {
         setMessage('');
     };
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         if (name && email) {
-            localStorage.setItem('userData', JSON.stringify({ name, email }));
-            setMessage('Cadastro realizado com sucesso!');
+            try {
+                const response = await fetch('http://localhost:5000/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email }),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    setMessage(result.message);
+                    setTimeout(() => navigate('/'), 2000); // Redireciona após 2 segundos
+                } else {
+                    setMessage(result.error || 'Erro ao cadastrar.');
+                }
+            } catch (error) {
+                console.error('Erro ao conectar ao servidor:', error);
+                setMessage('Erro ao conectar ao servidor.');
+            }
         } else {
             setMessage('Por favor, preencha todos os campos.');
         }
@@ -27,6 +48,7 @@ function Login() {
         const storedUser = JSON.parse(localStorage.getItem('userData'));
         if (storedUser && storedUser.email === email) {
             setMessage(`Bem-vindo, ${storedUser.name}!`);
+            setTimeout(() => navigate('/'), 2000); // Redireciona após 2 segundos
         } else {
             setMessage('E-mail não encontrado. Verifique ou registre-se.');
         }
