@@ -31,7 +31,7 @@ function Login() {
 
                 if (response.ok) {
                     setMessage(result.message);
-                    setTimeout(() => navigate('/'), 2000); // Redireciona após 2 segundos
+                    setTimeout(() => navigate('/'), 2000); // Redireciona após sucesso
                 } else {
                     setMessage(result.error || 'Erro ao cadastrar.');
                 }
@@ -44,13 +44,31 @@ function Login() {
         }
     };
 
-    const handleLogin = () => {
-        const storedUser = JSON.parse(localStorage.getItem('userData'));
-        if (storedUser && storedUser.email === email) {
-            setMessage(`Bem-vindo, ${storedUser.name}!`);
-            setTimeout(() => navigate('/'), 2000); // Redireciona após 2 segundos
+    const handleLogin = async () => {
+        if (email) {
+            try {
+                const response = await fetch('http://localhost:5000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email }),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    setMessage(`Bem-vindo, ${result.user.name}!`);
+                    setTimeout(() => navigate('/'), 2000); // Redireciona após login
+                } else {
+                    setMessage(result.error || 'E-mail não encontrado.');
+                }
+            } catch (error) {
+                console.error('Erro ao conectar ao servidor:', error);
+                setMessage('Erro ao conectar ao servidor.');
+            }
         } else {
-            setMessage('E-mail não encontrado. Verifique ou registre-se.');
+            setMessage('Por favor, preencha o campo de e-mail.');
         }
     };
 
@@ -59,44 +77,34 @@ function Login() {
             {isLogin ? (
                 <div className="form">
                     <h2>Login</h2>
-                    <label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Digite seu e-mail"
-                        />
-                    </label>
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Digite seu e-mail"
+                    />
                     <button onClick={handleLogin}>Entrar</button>
                     {message && <p className="message">{message}</p>}
-                    <p>
-                        Não tem uma conta? <span onClick={toggleScreen}>Cadastre-se</span>
-                    </p>
+                    <p>Não tem uma conta? <span onClick={toggleScreen}>Cadastrar</span></p>
                 </div>
             ) : (
                 <div className="form">
                     <h2>Cadastro</h2>
-                    <label>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder="Digite seu nome"
-                        />
-                    </label>
-                    <label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Digite seu e-mail"
-                        />
-                    </label>
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Digite seu nome"
+                    />
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Digite seu e-mail"
+                    />
                     <button onClick={handleRegister}>Cadastrar</button>
                     {message && <p className="message">{message}</p>}
-                    <p>
-                        Já tem uma conta? <span onClick={toggleScreen}>Faça login</span>
-                    </p>
+                    <p>Já tem uma conta? <span onClick={toggleScreen}>Entrar</span></p>
                 </div>
             )}
         </div>
