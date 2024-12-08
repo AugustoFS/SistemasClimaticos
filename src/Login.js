@@ -21,22 +21,14 @@ function Login() {
             try {
                 const response = await fetch('http://localhost:5000/register', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name, email }),
                 });
 
                 const result = await response.json();
-
-                if (response.ok) {
-                    setMessage(result.message);
-                    setTimeout(() => navigate('/'), 2000); // Redireciona após sucesso
-                } else {
-                    setMessage(result.error || 'Erro ao cadastrar.');
-                }
+                setMessage(response.ok ? result.message : result.error);
+                if (response.ok) setTimeout(() => navigate('/'), 2000);
             } catch (error) {
-                console.error('Erro ao conectar ao servidor:', error);
                 setMessage('Erro ao conectar ao servidor.');
             }
         } else {
@@ -49,23 +41,19 @@ function Login() {
             try {
                 const response = await fetch('http://localhost:5000/login', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email }),
                 });
 
                 const result = await response.json();
-
                 if (response.ok) {
-                    localStorage.setItem('isLoggedIn', 'true'); // Salva estado de login
+                    localStorage.setItem('isLoggedIn', 'true');
                     setMessage(`Bem-vindo, ${result.user.name}!`);
-                    setTimeout(() => navigate('/'), 2000); // Redireciona após login
+                    setTimeout(() => navigate('/'), 2000);
                 } else {
-                    setMessage(result.error || 'E-mail não encontrado.');
+                    setMessage(result.error);
                 }
             } catch (error) {
-                console.error('Erro ao conectar ao servidor:', error);
                 setMessage('Erro ao conectar ao servidor.');
             }
         } else {

@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
-import Login from './Login.js'; // Tela de login
+import Login from './Login.js';
+import Logout from './Logout.js';
 
 function Home() {
   const [weather, setWeather] = useState();
@@ -12,7 +13,6 @@ function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Verifica se há algum estado de login salvo (exemplo simples)
     const loggedIn = localStorage.getItem('isLoggedIn');
     setIsLoggedIn(loggedIn === 'true');
   }, []);
@@ -120,13 +120,7 @@ function Home() {
   }
 
   const handleLogout = () => {
-    localStorage.setItem('isLoggedIn', 'false'); // Remove estado de login
-    setIsLoggedIn(false);
-    navigate('/login');
-  };
-
-  const handleAdd = () => {
-    alert("Função para adicionar algo será implementada aqui!");
+    navigate('/logout');
   };
 
   return (
@@ -134,7 +128,6 @@ function Home() {
       <header className="header">
         {isLoggedIn ? (
           <>
-            <button className="header-button" onClick={handleAdd}>Adicionar</button>
             <button className="header-button" onClick={handleLogout}>Sair</button>
           </>
         ) : (
@@ -164,6 +157,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
     </Router>
   );
