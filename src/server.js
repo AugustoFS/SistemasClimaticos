@@ -1,9 +1,12 @@
 import express, { json } from 'express';
 import { createConnection } from 'mysql2';
 import cors from 'cors';
+import nodemailer from 'nodemailer';
+
 const app = express();
 const port = 5000;
 
+// Configuração do banco de dados MySQL
 const db = createConnection({
     host: 'localhost',
     user: 'root',
@@ -16,9 +19,20 @@ db.connect((err) => {
     console.log('Conectado ao banco de dados MySQL!');
 });
 
+// Configuração do Nodemailer
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'climalerta@gmail.com', // Substitua pelo e-mail do remetente
+        pass: 'fvdi owbn kmwu jyog', // Substitua pela senha do e-mail do remetente
+    },
+});
+
+// Middleware
 app.use(cors());
 app.use(json());
 
+// Rota de cadastro
 app.post('/register', (req, res) => {
     const { name, email } = req.body;
     if (name && email) {
@@ -28,7 +42,22 @@ app.post('/register', (req, res) => {
                 console.error(err);
                 res.status(500).json({ error: 'Erro ao cadastrar usuário.' });
             } else {
-                res.status(200).json({ message: 'Usuário cadastrado com sucesso!' });
+                // Enviar e-mail após cadastro bem-sucedido
+                const mailOptions = {
+                    from: 'climalerta@gmail.com',
+                    to: email,
+                    subject: 'Cadastro no Sistema Climático',
+                    text: `Olá ${name}, você se cadastrou no sistema climático com sucesso!`,
+                };
+
+                transporter.sendMail(mailOptions, (mailErr) => {
+                    if (mailErr) {
+                        console.error('Erro ao enviar e-mail:', mailErr);
+                        res.status(500).json({ error: 'Usuário cadastrado, mas falha ao enviar o e-mail.' });
+                    } else {
+                        res.status(200).json({ message: 'Usuário cadastrado com sucesso! E-mail enviado.' });
+                    }
+                });
             }
         });
     } else {
@@ -36,6 +65,7 @@ app.post('/register', (req, res) => {
     }
 });
 
+// Rota de login
 app.post('/login', (req, res) => {
     const { email } = req.body;
     if (email) {
@@ -55,6 +85,7 @@ app.post('/login', (req, res) => {
     }
 });
 
+// Iniciar o servidor
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
