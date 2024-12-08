@@ -11,7 +11,13 @@ function Home() {
   const inputRef = useRef();
   const navigate = useNavigate();
 
-  async function searchCity() {
+  useEffect(() => {
+    // Verifica se há algum estado de login salvo (exemplo simples)
+    const loggedIn = localStorage.getItem('isLoggedIn');
+    setIsLoggedIn(loggedIn === 'true');
+  }, []);
+
+  const searchCity = async () => {
     const city = inputRef.current.value;
     const key = "8168a0c9e5947bef407cb1b34a32e70d";
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&lang=pt_br&units=metric`;
@@ -24,11 +30,6 @@ function Home() {
     } catch (error) {
       console.error("Erro ao buscar informações da API:", error);
     }
-  }
-
-  const handleLogout = () => {
-    setIsLoggedIn(false); // Apenas define o estado de login para falso
-    navigate('/login'); // Redireciona para a página de login
   };
 
   function WeatherInformations({ weather }) {
@@ -118,11 +119,24 @@ function Home() {
     );
   }
 
+  const handleLogout = () => {
+    localStorage.setItem('isLoggedIn', 'false'); // Remove estado de login
+    setIsLoggedIn(false);
+    navigate('/login');
+  };
+
+  const handleAdd = () => {
+    alert("Função para adicionar algo será implementada aqui!");
+  };
+
   return (
     <div className="container">
       <header className="header">
         {isLoggedIn ? (
-          <button className="header-button" onClick={handleLogout}>Sair</button>
+          <>
+            <button className="header-button" onClick={handleAdd}>Adicionar</button>
+            <button className="header-button" onClick={handleLogout}>Sair</button>
+          </>
         ) : (
           <button className="header-button" onClick={() => navigate('/login')}>Entrar</button>
         )}

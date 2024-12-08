@@ -58,6 +58,7 @@ function Login() {
                 const result = await response.json();
 
                 if (response.ok) {
+                    localStorage.setItem('isLoggedIn', 'true'); // Salva estado de login
                     setMessage(`Bem-vindo, ${result.user.name}!`);
                     setTimeout(() => navigate('/'), 2000); // Redireciona após login
                 } else {
