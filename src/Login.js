@@ -46,12 +46,12 @@ function Login() {
                 });
 
                 const result = await response.json();
+                setMessage(response.ok ? `Bem-vindo, ${result.user.name}!` : result.error);
                 if (response.ok) {
-                    localStorage.setItem('isLoggedIn', 'true');
-                    setMessage(`Bem-vindo, ${result.user.name}!`);
-                    setTimeout(() => navigate('/'), 2000);
-                } else {
-                    setMessage(result.error);
+                    setTimeout(() => {
+                        localStorage.setItem('isLoggedIn', 'true');
+                        navigate('/'); // Redireciona para a tela inicial após login
+                    }, 2000);
                 }
             } catch (error) {
                 setMessage('Erro ao conectar ao servidor.');

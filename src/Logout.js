@@ -12,10 +12,14 @@ function Logout() {
 
     return (
         <div className="logout-container">
-            <h2>Tem certeza que deseja sair?</h2>
+            <h2 className="logout-title">Tem certeza que deseja sair?</h2>
             <div className="logout-buttons">
-                <button onClick={handleConfirmLogout} className="confirm-button">Confirmar</button>
-                <button onClick={() => navigate('/')} className="cancel-button">Cancelar</button>
+                <button className="logout-button confirm" onClick={handleConfirmLogout}>
+                    Confirmar
+                </button>
+                <button className="logout-button cancel" onClick={() => navigate('/')}>
+                    Cancelar
+                </button>
             </div>
         </div>
     );

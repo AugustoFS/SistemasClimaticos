@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 import Login from './Login.js';
 import Logout from './Logout.js';
+import Alerta from './Alerta.js';
 
 function Home() {
   const [weather, setWeather] = useState();
@@ -120,7 +121,19 @@ function Home() {
   }
 
   const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn'); // Remove o estado de login
+    setIsLoggedIn(false); // Atualiza o estado no frontend
     navigate('/logout');
+  };
+
+  const handleLogin = () => {
+    localStorage.setItem('isLoggedIn', 'true'); // Marca como logado
+    setIsLoggedIn(true); // Atualiza o estado no frontend
+    navigate('/login'); // Redireciona para a página inicial
+  };
+
+  const handleAddCity = () => {
+    navigate('/alerta'); // Redireciona para a tela de adicionar cidade
   };
 
   return (
@@ -128,15 +141,16 @@ function Home() {
       <header className="header">
         {isLoggedIn ? (
           <>
+            <button className="header-button" onClick={() => navigate('/alerta')}>Adicionar</button>
             <button className="header-button" onClick={handleLogout}>Sair</button>
           </>
         ) : (
-          <button className="header-button" onClick={() => navigate('/login')}>Entrar</button>
+          <button className="header-button" onClick={handleLogin}>Entrar</button>
         )}
       </header>
 
       <div className="search-section">
-        <input ref={inputRef} type="text" placeholder="Digite o nome da cidade" />
+      <input ref={inputRef} type="text" placeholder="Digite o nome da cidade" />
         <button onClick={searchCity}>Buscar</button>
       </div>
 
@@ -158,6 +172,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/alerta" element={<Alerta />} />
       </Routes>
     </Router>
   );

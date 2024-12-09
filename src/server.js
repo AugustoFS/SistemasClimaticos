@@ -59,11 +59,32 @@ app.post('/login', (req, res) => {
         const query = 'SELECT * FROM users WHERE email = ?';
         db.query(query, [email], (err, result) => {
             if (err) return res.status(500).json({ error: 'Erro ao buscar usuário.' });
-            if (result.length > 0) return res.status(200).json({ user: result[0] });
-            res.status(404).json({ error: 'E-mail não encontrado.' });
+            if (result.length > 0) {
+                const user = result[0];
+                res.status(200).json({ message: 'Login realizado com sucesso.', user });
+            } else {
+                res.status(404).json({ error: 'E-mail não encontrado.' });
+            }
         });
     } else {
         res.status(400).json({ error: 'E-mail é obrigatório.' });
+    }
+});
+
+// Associar cidade ao usuário
+app.post('/add-city', (req, res) => {
+    const { city, email } = req.body;
+
+    // Verificar se a cidade e o email foram fornecidos
+    if (city && email) {
+        const query = 'UPDATE users SET cidade = ? WHERE email = ?';
+        db.query(query, [city, email], (err, result) => {
+            if (err) return res.status(500).json({ message: 'Erro ao atualizar a cidade.' });
+            if (result.affectedRows === 0) return res.status(404).json({ message: 'Usuário não encontrado.' });
+            res.status(200).json({ message: 'Cidade associada ao usuário com sucesso!' });
+        });
+    } else {
+        res.status(400).json({ message: 'O nome da cidade e o e-mail são obrigatórios.' });
     }
 });
 
