@@ -121,15 +121,15 @@ function Home() {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn'); // Remove o estado de login
-    setIsLoggedIn(false); // Atualiza o estado no frontend
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
     navigate('/logout');
   };
 
   const handleLogin = () => {
-    localStorage.setItem('isLoggedIn', 'true'); // Marca como logado
-    setIsLoggedIn(true); // Atualiza o estado no frontend
-    navigate('/login'); // Redireciona para a página inicial
+    localStorage.setItem('isLoggedIn', 'true');
+    setIsLoggedIn(true);
+    navigate('/login');
   };
 
   const handleAddCity = () => {
@@ -150,7 +150,7 @@ function Home() {
       </header>
 
       <div className="search-section">
-      <input ref={inputRef} type="text" placeholder="Digite o nome da cidade" />
+        <input ref={inputRef} type="text" placeholder="Digite o nome da cidade" />
         <button onClick={searchCity}>Buscar</button>
       </div>
 
@@ -166,12 +166,14 @@ function Home() {
 }
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Defina aqui o estado
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
+        <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/alerta" element={<Alerta />} />
       </Routes>
     </Router>

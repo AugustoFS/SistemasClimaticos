@@ -1,13 +1,22 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 
-function Logout() {
+function Logout({ setIsLoggedIn }) {
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
     const handleConfirmLogout = () => {
         // Limpa o login e redireciona para a tela principal
         localStorage.removeItem('isLoggedIn');
-        navigate('/'); // Redireciona para a tela inicial
+        setIsLoggedIn(false); // Atualiza o estado em App.js
+        setMessage('Você saiu com sucesso.');
+        setTimeout(() => navigate('/'), 2000); // Redireciona após 2 segundos
+    };
+
+    const handleBack = () => {
+        // Caso o usuário clique em "Voltar", apenas redireciona sem remover o login
+        navigate('/');
     };
 
     return (
@@ -15,7 +24,8 @@ function Logout() {
             <h2>Você deseja sair?</h2>
             <div className="content">
                 <button onClick={handleConfirmLogout}>Confirmar Sair</button>
-                <p><span onClick={() => navigate('/')}> Voltar </span></p>
+                <p><span onClick={handleBack}> Voltar </span></p>
+                {message && <p className="message">{message}</p>}
             </div>
         </div>
     );
