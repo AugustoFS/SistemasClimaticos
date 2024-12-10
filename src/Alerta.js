@@ -47,7 +47,7 @@ function Alerta() {
                     placeholder="Digite o nome da cidade"
                 />
                 <button onClick={handleAddCity}>Adicionar</button>
-                <button onClick={handleBack} className="secondary-button">Voltar</button>
+                <p><span onClick={() => navigate('/')}> Voltar </span></p>
                 {message && <p className="message">{message}</p>}
             </div>
         </div>
