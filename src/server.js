@@ -2,6 +2,8 @@ import express, { json } from 'express';
 import { createConnection } from 'mysql2';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
+import axios from 'axios';  // Certifique-se de instalar axios
+import cron from 'node-cron';  // Certifique-se de instalar node-cron
 
 const app = express();
 const port = 5000;
@@ -22,7 +24,7 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'climalerta@gmail.com',
-        pass: 'fvdi owbn kmwu jyog',
+        pass: 'fvdi owbn kmwu jyog', // Certifique-se de usar uma senha de app se necessário
     },
 });
 
@@ -86,6 +88,80 @@ app.post('/add-city', (req, res) => {
     } else {
         res.status(400).json({ message: 'O nome da cidade e o e-mail são obrigatórios.' });
     }
+});
+
+// Função para buscar a previsão do tempo para uma cidade
+const getWeatherForecast = async (city) => {
+    const key = "8168a0c9e5947bef407cb1b34a32e70d";  // Substitua pela sua chave da API do OpenWeatherMap
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&lang=pt_br&units=metric`;
+
+    try {
+        const response = await axios.get(url);
+        return response.data;
+    } catch (error) {
+        console.error("Erro ao buscar a previsão do tempo:", error);
+        return null;
+    }
+};
+
+// Função para enviar o e-mail com a previsão do tempo para o usuário
+const sendWeatherEmail = async (email, city, weatherData) => {
+    if (!weatherData) {
+        console.error(`Previsão do tempo não encontrada para a cidade: ${city}`);
+        return;
+    }
+
+    const mailOptions = {
+        from: 'climalerta@gmail.com',
+        to: email,
+        subject: `Previsão Climática de Hoje para ${city}`,
+        text: `Olá, aqui está a previsão do tempo para ${city} hoje:\n\n` +
+            `Estado do Tempo: ${weatherData.weather[0].description}\n` +
+            `Temperatura: ${Math.round(weatherData.main.temp)}ºC\n` +
+            `Sensação Térmica: ${Math.round(weatherData.main.feels_like)}ºC`,
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log(`E-mail enviado para: ${email}`);
+    } catch (error) {
+        console.error("Erro ao enviar o e-mail:", error);
+    }
+};
+
+// Enviar e-mail com previsão para todos os usuários cadastrados
+const sendEmailsToAllUsers = async () => {
+    console.log('Iniciando envio de e-mails com previsão do tempo para todos os usuários...');
+    const query = 'SELECT * FROM users WHERE email IS NOT NULL AND cidade IS NOT NULL';
+
+    db.query(query, async (err, users) => {
+        if (err) {
+            console.error("Erro ao buscar usuários:", err);
+            return;
+        }
+
+        if (users.length === 0) {
+            console.log("Nenhum usuário encontrado.");
+            return;
+        }
+
+        // Envia os e-mails com a previsão do tempo para todos os usuários
+        const emailPromises = users.map(async (user) => {
+            console.log(`Buscando previsão do tempo para a cidade: ${user.cidade} (usuário: ${user.email})`);
+            const weatherData = await getWeatherForecast(user.cidade);
+            return sendWeatherEmail(user.email, user.cidade, weatherData);
+        });
+
+        // Espera todos os e-mails serem enviados antes de finalizar
+        await Promise.all(emailPromises);
+        console.log('Todos os e-mails com previsão foram enviados.');
+    });
+};
+
+// Agendar a execução da função todos os dias às 9:30 AM (horário de Brasília)
+cron.schedule('40 10 * * *', () => {
+    console.log('Executando agendador para enviar e-mails com previsão do tempo...');
+    sendEmailsToAllUsers();
 });
 
 app.listen(port, () => {
