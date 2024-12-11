@@ -159,7 +159,7 @@ const sendEmailsToAllUsers = async () => {
 };
 
 // Agendar a execução da função todos os dias às 9:30 AM (horário de Brasília)
-cron.schedule('40 10 * * *', () => {
+cron.schedule('0 22 * * *', () => {
     console.log('Executando agendador para enviar e-mails com previsão do tempo...');
     sendEmailsToAllUsers();
 });

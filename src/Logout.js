@@ -14,17 +14,11 @@ function Logout({ setIsLoggedIn }) {
         setTimeout(() => navigate('/'), 2000); // Redireciona após 2 segundos
     };
 
-    const handleBack = () => {
-        // Caso o usuário clique em "Voltar", apenas redireciona sem remover o login
-        navigate('/');
-    };
-
     return (
         <div className="logout-container">
             <h2>Você deseja sair?</h2>
             <div className="content">
                 <button onClick={handleConfirmLogout}>Confirmar Sair</button>
-                <p><span onClick={handleBack}> Voltar </span></p>
                 {message && <p className="message">{message}</p>}
             </div>
         </div>

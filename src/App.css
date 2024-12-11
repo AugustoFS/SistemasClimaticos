@@ -3,56 +3,65 @@
   max-width: 100vw;
   margin: 0 auto;
   text-align: center;
+  background-color: black;
+  color: white;
 }
 
 /* Títulos principais */
 h1 {
   font-size: 3rem;
-  color: aliceblue;
+  color: white;
 }
 
 /* Campo de entrada */
 input {
   padding: 10px;
   border-radius: 5px 0 0 5px;
-  border: none;
+  border: 1px solid white;
   width: 60%;
   max-width: 300px;
   outline: none;
   margin-top: 30px;
+  background-color: black;
+  color: white;
 }
 
 /* Botões gerais */
 button {
-  background-color: rgb(140, 140, 140);
-  border: none;
+  background-color: black;
+  border: 1px solid white;
   padding: 10px;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
-  color: aliceblue;
+  color: white;
   font-weight: bold;
 }
 
 button:hover {
-  background-color: rgb(100, 100, 100);
+  background-color: white;
+  color: black;
 }
 
 /* Informações do tempo */
 .weather-container {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: black;
+  border: 1px solid white;
   border-radius: 10px;
   padding: 20px;
   margin: 20px 50px 20px 50px;
+  color: white;
 }
 
 h2 {
   font-size: 2rem;
+  color: white;
 }
 
 .weather-info {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: white;
 }
 
 .temperature {
@@ -69,79 +78,49 @@ h2 {
 .details {
   display: flex;
   justify-content: space-evenly;
+  color: white;
 }
 
 /* Estilização responsiva para telas menores que 400px */
 @media (max-width: 500px) {
   .details {
     display: grid;
-    /* Altera para grid layout */
     grid-template-columns: repeat(2, 1fr);
-    /* Define duas colunas */
     gap: 10px;
-    /* Espaçamento entre os itens */
     text-align: center;
-    /* Centraliza os textos */
+    color: white;
   }
 }
 
 h3 {
   font-size: 1rem;
   margin-bottom: 15px;
+  color: white;
 }
 
 .weather-horizontal-scroll {
   display: flex;
-  /* Alinha os itens em uma linha */
   overflow-x: scroll;
-  /* Permite rolagem horizontal */
   justify-content: space-evenly;
-  /* Espaçamento uniforme entre os itens */
   padding: 10px;
-  /*scrollbar-width: none;  Firefox */
-  /*-ms-overflow-style: none; IE e Edge */
 }
-
-/*.weather-horizontal-scroll::-webkit-scrollbar {
-  display: none; Chrome, Safari e Opera 
-}*/
 
 .weather-item {
   flex: 0 0 auto;
-  /* Garante que os itens não encolham */
   text-align: center;
   width: 210px;
-  /* Largura fixa para cada item */
   padding: 10px;
   margin: 0 5px;
-  /* Espaçamento adicional opcional entre itens */
+  background-color: black;
+  border: 1px solid white;
+  color: white;
 }
 
 .forecast-day,
 .forecast-description {
   text-transform: capitalize;
   font-size: 1rem;
-}
-
-.header {
-  display: flex;
-  justify-content: flex-end;
-  background: rgb(55, 55, 55);
-  border-bottom: 1px solid rgb(77, 77, 77);
-}
-
-.header-button {
-  background-color: rgb(140, 140, 140);
-  margin-right: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  color: aliceblue;
-  margin: 10px;
-}
-
-.header-button:hover {
-  background-color: rgb(100, 100, 100);
+  color: white;
 }
 
 /* Tela de Login - Container principal */
@@ -149,16 +128,17 @@ h3 {
   max-width: 340px;
   margin: 50px auto;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: black;
+  border: 1px solid white;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
+  color: white;
 }
 
 /* Título */
 .login-container h2 {
   font-size: 2rem;
-  color: rgb(55, 55, 55);
+  color: white;
   margin-bottom: 20px;
 }
 
@@ -167,60 +147,35 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  /* Espaçamento entre os elementos do formulário */
-}
-
-/* Inputs e botões */
-.login-container label {
-  margin: 0;
-  /* Remove margens entre os rótulos */
 }
 
 .login-container input,
 .login-container button {
   width: 100%;
-  /* Ambos com largura de 100% */
   padding: 12px;
-  /* Ajuste para garantir que tenham a mesma altura */
   border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid white;
   font-size: 1rem;
   margin: 0;
-  /* Remove margens individuais */
-  box-sizing: border-box;
-  /* Garantir que o padding e bordas não alterem o tamanho total */
-  outline: none;
-}
-
-/* Ajustes específicos para o botão */
-.login-container button {
-  background-color: rgb(140, 140, 140);
-  color: aliceblue;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  background-color: black;
+  color: white;
 }
 
 .login-container button:hover {
-  background-color: rgb(100, 100, 100);
+  background-color: white;
+  color: black;
 }
 
 /* Mensagem de feedback */
 .login-container .message {
   margin-top: 10px;
   font-size: 0.9rem;
-  color: rgb(55, 155, 55);
+  color: white;
 }
 
 /* Links alternativos */
-.login-container p {
-  font-size: 0.9rem;
-  color: rgb(55, 55, 55);
-  margin: 15px 0 0;
-}
-
 span {
-  color: rgb(100, 100, 255);
+  color: white;
   cursor: pointer;
   font-weight: bold;
   text-decoration: none;
@@ -235,16 +190,17 @@ span:hover {
   max-width: 340px;
   margin: 50px auto;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: black;
+  border: 1px solid white;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
+  color: white;
 }
 
 /* Título */
 .logout-container h2 {
   font-size: 2rem;
-  color: rgb(55, 55, 55);
+  color: white;
   margin-bottom: 20px;
 }
 
@@ -254,6 +210,7 @@ span:hover {
   flex-direction: column;
   gap: 10px;
   align-items: center;
+  color: white;
 }
 
 /* Botões */
@@ -261,9 +218,9 @@ span:hover {
   width: 100%;
   padding: 12px;
   border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  background-color: rgb(140, 140, 140);
-  color: aliceblue;
+  border: 1px solid white;
+  background-color: black;
+  color: white;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
@@ -273,12 +230,40 @@ span:hover {
 }
 
 .logout-container button:hover {
-  background-color: rgb(100, 100, 100);
+  background-color: white;
+  color: black;
 }
 
 /* Mensagem de feedback */
 .logout-container .message {
   margin-top: 10px;
   font-size: 0.9rem;
-  color: rgb(255, 55, 55);
+  color: white;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: flex-end;
+  background-color: black;
+  border-bottom: 1px solid white;
+  padding: 10px;
+}
+
+/* Botões no header */
+.header-button {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.header-button:hover {
+  background-color: white;
+  color: black;
 }
