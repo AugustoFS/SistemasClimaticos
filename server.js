@@ -14,11 +14,11 @@ const port = process.env.PORT || 5000;
 
 // Configuração do banco de dados
 const db = createConnection({
-    host: 'junction.proxy.rlwy.net',
-    user: 'root',
-    password: 'NhKTkmfuWLAvygoFmZQWpRIOysnOiJXG',
-    database: 'railway',
-    port: 54617,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
 });
 
 db.connect((err) => {
