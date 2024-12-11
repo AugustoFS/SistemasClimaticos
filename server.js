@@ -2,22 +2,28 @@ import express, { json } from 'express';
 import { createConnection } from 'mysql2';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
-import axios from 'axios';  // Certifique-se de instalar axios
-import cron from 'node-cron';  // Certifique-se de instalar node-cron
+import axios from 'axios';
+import cron from 'node-cron';
+import dotenv from 'dotenv';
+
+// Carregar variáveis de ambiente
+dotenv.config();
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
+// Configuração do banco de dados
 const db = createConnection({
-    host: 'localhost',
+    host: 'junction.proxy.rlwy.net',
     user: 'root',
-    password: '',
-    database: 'weather_app',
+    password: 'NhKTkmfuWLAvygoFmZQWpRIOysnOiJXG',
+    database: 'railway',
+    port: 54617,
 });
 
 db.connect((err) => {
     if (err) throw err;
-    console.log('Conectado ao banco de dados MySQL!');
+    console.log('Conectado ao banco de dados MySQL no Railway!');
 });
 
 const transporter = nodemailer.createTransport({
