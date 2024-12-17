@@ -2,28 +2,22 @@ import express, { json } from 'express';
 import { createConnection } from 'mysql2';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
-import axios from 'axios';
-import cron from 'node-cron';
-import dotenv from 'dotenv';
-
-// Carregar variáveis de ambiente
-dotenv.config();
+import axios from 'axios';  // Certifique-se de instalar axios
+import cron from 'node-cron';  // Certifique-se de instalar node-cron
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = 5000;
 
-// Configuração do banco de dados
 const db = createConnection({
-    host: 'junction.proxy.rlwy.net',
+    host: 'localhost',
     user: 'root',
-    password: 'NhKTkmfuWLAvygoFmZQWpRIOysnOiJXG',
-    database: 'railway',
-    port: 54617,
+    password: '',
+    database: 'weather_app',
 });
 
 db.connect((err) => {
     if (err) throw err;
-    console.log('Conectado ao banco de dados MySQL no Railway!');
+    console.log('Conectado ao banco de dados MySQL!');
 });
 
 const transporter = nodemailer.createTransport({
@@ -165,7 +159,7 @@ const sendEmailsToAllUsers = async () => {
 };
 
 // Agendar a execução da função todos os dias às 9:30 AM (horário de Brasília)
-cron.schedule('0 22 * * *', () => {
+cron.schedule('30 20 * * *', () => {
     console.log('Executando agendador para enviar e-mails com previsão do tempo...');
     sendEmailsToAllUsers();
 });

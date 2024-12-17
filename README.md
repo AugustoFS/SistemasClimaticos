@@ -6,7 +6,9 @@ Apos as dependencias forem instaladas de um `node server.js`
 
 E apos receber a mensagem "Conectado ao banco de dados MySQL no Railway!" de um `npm start`
 
-Se o terminal perguntar se deseja executar o app em outra porta eh so digitar `y`
+# Mais Lembretes
+
+Baixar o Xampp e MySql Workbench para o funcionamento do banco de dados
 
 # Getting Started with Create React App
 
