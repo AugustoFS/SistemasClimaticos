@@ -1,3 +1,13 @@
+# Como fazer App.js Funcionar
+
+Primeiro no terminal de um comando `npm i`
+
+Apos as dependencias forem instaladas de um `node server.js`
+
+E apos receber a mensagem "Conectado ao banco de dados MySQL no Railway!" de um `npm start`
+
+Se o terminal perguntar se deseja executar o app em outra porta eh so digitar `y`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
